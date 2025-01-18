@@ -55,9 +55,9 @@ function compare(input){
             score++
             currentPokemon = 'left'
         } else if (rightPokeHP > leftPokeHP) {
+            score = 0
             alert(`incorrect ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
             refreshScore()
-            score = 0
         } else {
             alert('draw')
             refreshScore()
@@ -65,9 +65,9 @@ function compare(input){
     // input = 1
     } else {
         if (leftPokeHP > rightPokeHP){
+            score = 0
             alert(`Incorrect ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
             refreshScore()
-            score = 0
         } else if (rightPokeHP > leftPokeHP) {
             alert(`Correct ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
             if (score > 3){
