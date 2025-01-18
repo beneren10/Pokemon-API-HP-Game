@@ -23,7 +23,7 @@
     font-size: xx-large;
 }
 .right {
-    border: 1px solid black;
+    border: 1px solid blue;
     height: 100%;
     width: 100%;
     display: flex;
@@ -65,4 +65,10 @@ body {
     cursor: pointer;
     width: 200px;
     height: 50px;
+}
+
+.scores {
+    display: flex;
+    justify-content: space-evenly;
+    
 }
