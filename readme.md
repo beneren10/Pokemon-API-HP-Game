@@ -12,11 +12,11 @@ After 3 successful guesses the game makes it harder by randomising both Pokemon.
 
 If two Pokemon have the same HP it will draw and refresh your choices.
 
-### High Score page
+## High Score page
 
 --- EMPTY ---
 
-#### Future ideas
+### Future ideas
 
 To limit the pokemon to 151 in total so you can complete the game
 
