@@ -43,6 +43,7 @@ function collect(e){
 
 // compares two pokemon by using rightPokeHP or leftPokeHP
 function compare(input){
+    // input = 0
     if (!input){
         if (leftPokeHP > rightPokeHP){
             alert(`Correct ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
@@ -51,19 +52,17 @@ function compare(input){
             currentPokemon = 'left'
         } else if (rightPokeHP > leftPokeHP) {
             alert(`incorrect ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
-            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
-            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            refreshScore()
             score = 0
         } else {
             alert('draw')
-            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
-            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            refreshScore()
         }
+    // input = 1
     } else {
         if (leftPokeHP > rightPokeHP){
             alert(`Incorrect ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
-            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
-            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            refreshScore()
             score = 0
         } else if (rightPokeHP > leftPokeHP) {
             alert(`Correct ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
@@ -72,13 +71,16 @@ function compare(input){
             currentPokemon = 'right'
         } else {
             alert('draw')
-            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
-            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            refreshScore()
         }
-        
     }
     scores.textContent = score
     
+    
+}
+
+function refreshScore(){
+    // feature for making it harder if you get a pokemon with high hp - randomises pokemon
     if (score == 4) {
         alert("Pokemon will now be randomised cos you are good at this game")
         rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
@@ -86,9 +88,13 @@ function compare(input){
     } else if (score > 4 ) {
         rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+    } else {
+        rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+        leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
     }
 }
 
+// left PokeAPI 
 async function leftPokeAPI(value){
     const url = `https://pokeapi.co/api/v2/pokemon/${value}`
     try {
@@ -107,6 +113,7 @@ async function leftPokeAPI(value){
     }
 }
 
+// Adds pokemon to left 
 function addLeft(param){
     if (document.querySelector('#listSection .new .left img')){
         leftImgEle.remove()
@@ -128,6 +135,7 @@ function addLeft(param){
     fruitLeft.appendChild(leftLi)
 }
 
+// right PokeAPI
 async function rightPokeAPI(value){
     const url = `https://pokeapi.co/api/v2/pokemon/${value}`
     try {
@@ -146,6 +154,7 @@ async function rightPokeAPI(value){
     }
 }
 
+// Adds pokemon to right
 function addright(param){
     if (document.querySelector('#listSection .new .right img')){
         rightImgEle.remove()
