@@ -7,11 +7,19 @@ const nextBtn = document.querySelector('body input')
 document.addEventListener('DOMContentLoaded',randPokeId)
 document.addEventListener('click',next)
 
-function next(e){
-    e.preventDefault()
-    location.reload()
+let randomNumbers = [];
+for(let i = 0; i < 6; i++) {
+  randomNumbers.push(Math.floor(Math.random() * 151));
 }
 
+let rightPokeHP = 0;
+let rightPokeName = ''
+let leftPokeHP = 0;
+let leftPokeName = ""
+
+function next(e){
+    e.preventDefault()
+}
 
 function compare(input){
     if (!input){
@@ -29,49 +37,9 @@ function compare(input){
     }
 }
 
-let randomNumbers = [];
-for(let i = 0; i < 6; i++) {
-  randomNumbers.push(Math.floor(Math.random() * 151));
-}
-
 async function randPokeId(){
     leftPokeAPI(randomNumbers[0])
     rightPokeAPI(randomNumbers[1])
-}
-let leftPokeHP = 0;
-let leftPokeName = ""
-
-function addLeft(param){
-    imgEle = document.createElement("img")
-    li = document.createElement('p')
-
-    leftPokeHP = param['stats'][0]['base_stat']
-    leftPokeName = param['forms'][0].name
-
-    li.textContent = param['forms'][0].name + ' ID:' + param['id']
-    imgEle.style.height = '400px'
-    imgEle.src = param['sprites']['front_default']
-    
-    fruitLeft.appendChild(imgEle)
-    fruitLeft.appendChild(li)
-}
-
-let rightPokeHP = 0;
-let rightPokeName = ''
-
-function addright(param){
-    imgEle = document.createElement("img")
-    li = document.createElement('p')
-    
-    rightPokeHP = param['stats'][0]['base_stat']
-    rightPokeName = param['forms'][0].name 
-
-    li.textContent = param['forms'][0].name + ' ID:' + param['id']
-    imgEle.style.height = '400px'
-    imgEle.src = param['sprites']['front_default']
-    
-    fruitright.appendChild(imgEle)
-    fruitright.appendChild(li)
 }
 
 async function leftPokeAPI(value){
@@ -92,6 +60,22 @@ async function leftPokeAPI(value){
     console.log(error + "hello")
     }
 }
+
+function addLeft(param){
+    imgEle = document.createElement("img")
+    li = document.createElement('p')
+
+    leftPokeHP = param['stats'][0]['base_stat']
+    leftPokeName = param['forms'][0].name
+
+    li.textContent = param['forms'][0].name + ' ID:' + param['id']
+    imgEle.style.height = '400px'
+    imgEle.src = param['sprites']['front_default']
+    
+    fruitLeft.appendChild(imgEle)
+    fruitLeft.appendChild(li)
+}
+
 async function rightPokeAPI(value){
     const url = `https://pokeapi.co/api/v2/pokemon/${value}`
     try {
@@ -109,4 +93,19 @@ async function rightPokeAPI(value){
     }catch(error) {
     console.log(error + "hello")
     }
+}
+
+function addright(param){
+    imgEle = document.createElement("img")
+    li = document.createElement('p')
+    
+    rightPokeHP = param['stats'][0]['base_stat']
+    rightPokeName = param['forms'][0].name 
+
+    li.textContent = param['forms'][0].name + ' ID:' + param['id']
+    imgEle.style.height = '400px'
+    imgEle.src = param['sprites']['front_default']
+    
+    fruitright.appendChild(imgEle)
+    fruitright.appendChild(li)
 }
