@@ -47,7 +47,11 @@ function compare(input){
     if (!input){
         if (leftPokeHP > rightPokeHP){
             alert(`Correct ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
-            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            if (score > 3){
+                refreshScore()
+            } else {
+                rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            }
             score++
             currentPokemon = 'left'
         } else if (rightPokeHP > leftPokeHP) {
@@ -66,7 +70,11 @@ function compare(input){
             score = 0
         } else if (rightPokeHP > leftPokeHP) {
             alert(`Correct ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
-            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            if (score > 3){
+                refreshScore()
+            } else {
+                leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            }
             score++
             currentPokemon = 'right'
         } else {
@@ -89,6 +97,7 @@ function refreshScore(){
         rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
     } else {
+        //incorrect 
         rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
     }
