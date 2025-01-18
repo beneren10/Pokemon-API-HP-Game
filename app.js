@@ -2,9 +2,7 @@ const fruitForm = document.querySelector('#formSection form')
 const fruitList = document.querySelector('#listSection')
 const fruitLeft = document.querySelector('#listSection .new .left')
 const fruitright = document.querySelector('#listSection .new .right')
-const nextBtn = document.querySelector('body input')
 const scores = document.querySelector('.container p span')
-const container = document.querySelector('#listSection .container')
 
 // random numbers between 1-151 for API on page load
 let randomNumbers = [];
@@ -53,7 +51,6 @@ function compare(input){
             } else {
                 rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
             }
-            
             currentPokemon = 'left'
         } else if (rightPokeHP > leftPokeHP) {
             score = 0
