@@ -15,3 +15,10 @@ If two Pokemon have the same HP it will draw and refresh your choices.
 ### High Score page
 
 --- EMPTY ---
+
+#### Future ideas
+
+To limit the pokemon to 151 in total so you can complete the game
+
+To add highscore feature 
+To add correct guess percentage
