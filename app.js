@@ -47,12 +47,13 @@ function compare(input){
     if (!input){
         if (leftPokeHP > rightPokeHP){
             alert(`Correct ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
+            score++
             if (score > 3){
                 refreshScore()
             } else {
                 rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
             }
-            score++
+            
             currentPokemon = 'left'
         } else if (rightPokeHP > leftPokeHP) {
             score = 0
@@ -70,12 +71,12 @@ function compare(input){
             refreshScore()
         } else if (rightPokeHP > leftPokeHP) {
             alert(`Correct ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
+            score++
             if (score > 3){
                 refreshScore()
             } else {
                 leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
             }
-            score++
             currentPokemon = 'right'
         } else {
             alert('draw')
@@ -97,7 +98,7 @@ function refreshScore(){
         rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
     } else {
-        //incorrect 
+        //incorrect or draw
         rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
     }
