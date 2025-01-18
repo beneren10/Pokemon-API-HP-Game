@@ -1,7 +1,15 @@
-#listSection {
-    padding: 0;
-    margin: 0;
+@media screen and (max-width: 1000px) {
+    
 }
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url(./assets/ezgif-6-ecde21b6a1.jpg);
+}
+
 .new {
     border: 2px solid blue;
     width: 100%;
@@ -36,6 +44,9 @@
 .right img:hover {
     cursor: pointer;
 }
+.left:hover{
+    cursor: pointer;
+}
 .right:hover{
     background-color: rgba(120, 207, 58, 0.221);
 }
@@ -43,29 +54,8 @@
     background-color: rgba(255, 0, 0, 0.099);
 }
 
-.right input {
-    height: 50px;
-    width: 100px;
-    cursor: pointer;
-}
-.left input {
-    height: 50px;
-    width: 100px;
-    cursor: pointer;
-}
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-image: url(ezgif-6-ecde21b6a1.jpg);
-}
-.next-btn {
-    cursor: pointer;
-    width: 200px;
-    height: 50px;
-}
+
 .container {
     background-color: white;
     border: 2px blue solid;
@@ -73,4 +63,6 @@ body {
     max-height: 50px;
     display: flex;
     justify-content: space-evenly;
+    font-size: large;
+    align-items: center;
 }

@@ -3,14 +3,12 @@ const fruitList = document.querySelector('#listSection')
 const fruitLeft = document.querySelector('#listSection .new .left')
 const fruitright = document.querySelector('#listSection .new .right')
 const nextBtn = document.querySelector('body input')
+const scores = document.querySelector('.container p span')
+const container = document.querySelector('#listSection .container')
 
-const scores = document.querySelectorAll('.container p span')
-
-document.addEventListener('DOMContentLoaded',randPokeId)
-document.addEventListener('click',next)
-
+// random numbers between 1-151 for API on page load
 let randomNumbers = [];
-for(let i = 0; i < 152; i++) {
+for(let i = 1; i < 152; i++) {
   randomNumbers.push(Math.floor(Math.random() * 151));
 }
 
@@ -19,45 +17,76 @@ let rightPokeName = ''
 let leftPokeHP = 0;
 let leftPokeName = ""
 
+let score = 0
 
-let score = [0,0]
+// loads the pokemon on document load by sending rand to API
+document.addEventListener('DOMContentLoaded',randPokeId)
 
-function next(e){
+function randPokeId(e){
     e.preventDefault()
-}
-
-async function randPokeId(){
     leftPokeAPI(randomNumbers[0])
     rightPokeAPI(randomNumbers[1])
 }
 
+// sends to compare function which sends left[0] or right[1]
+fruitLeft.addEventListener('click',collect)
+fruitright.addEventListener('click',collect)
+
+function collect(e){
+    let classListVal = e.target.classList[0]
+    if (classListVal == 'left' || classListVal == 'left-img'){
+        compare(0)
+    } else if (classListVal == 'right' || classListVal == 'right-img') {
+        compare(1)
+    }
+}
+
+// compares two pokemon by using rightPokeHP or leftPokeHP
 function compare(input){
     if (!input){
         if (leftPokeHP > rightPokeHP){
             alert(`Correct ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
             rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            score++
+            currentPokemon = 'left'
         } else if (rightPokeHP > leftPokeHP) {
-            alert(`incorrect ${rightPokeName} has ${rightPokeHP}HP and is lower than ${leftPokeName} with ${leftPokeHP}HP`)
+            alert(`incorrect ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
             leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            score = 0
+        } else {
+            alert('draw')
+            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         }
-        
-
     } else {
         if (leftPokeHP > rightPokeHP){
-            alert(`Incorrect ${leftPokeName} has ${leftPokeHP}HP and is lower than ${rightPokeName} with ${rightPokeHP}HP`)
+            alert(`Incorrect ${leftPokeName} has ${leftPokeHP}HP and is higher than ${rightPokeName} with ${rightPokeHP}HP`)
             rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            score = 0
         } else if (rightPokeHP > leftPokeHP) {
             alert(`Correct ${rightPokeName} has ${rightPokeHP}HP and is higher than ${leftPokeName} with ${leftPokeHP}HP`)
             leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            score++
+            currentPokemon = 'right'
+        } else {
+            alert('draw')
+            leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+            rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
         }
         
     }
-    console.log(scores)
-    // scores.forEach(span => {
-    //     span[0].textContent = 'Games Played'
-    //     span[1].textContent = 'Score'
-    //     span[2].textContent = 'Win Percentage'
-    // })
+    scores.textContent = score
+    
+    if (score == 4) {
+        alert("Pokemon will now be randomised cos you are good at this game")
+        rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+        leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+    } else if (score > 4 ) {
+        rightPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+        leftPokeAPI(randomNumbers[Math.floor(Math.random()*151)])
+    }
 }
 
 async function leftPokeAPI(value){
@@ -90,7 +119,9 @@ function addLeft(param){
     leftPokeName = param['forms'][0].name
 
     leftLi.textContent = param['forms'][0].name + ' ID:' + param['id']
-    leftImgEle.style.height = '400px'
+    leftLi.classList = 'left-li'
+    leftImgEle.classList = 'left-img'
+    leftImgEle.style.height = '350px'
     leftImgEle.src = param['sprites']['front_default']
     
     fruitLeft.appendChild(leftImgEle)
@@ -108,7 +139,6 @@ async function rightPokeAPI(value){
         const pokeData = await response.json()
         if (typeof(value)=='number'){
             addright(pokeData)
-            // console.log(pokeData)
         }
 
     }catch(error) {
@@ -118,7 +148,6 @@ async function rightPokeAPI(value){
 
 function addright(param){
     if (document.querySelector('#listSection .new .right img')){
-        console.log('hit')
         rightImgEle.remove()
         rightLi.remove()
     }
@@ -129,7 +158,9 @@ function addright(param){
         rightPokeName = param['forms'][0].name 
 
         rightLi.textContent = param['forms'][0].name + ' ID:' + param['id']
-        rightImgEle.style.height = '400px'
+        rightLi.classList = 'right-li'
+        rightImgEle.classList = 'right-img'
+        rightImgEle.style.height = '350px'
         rightImgEle.src = param['sprites']['front_default']
     
         fruitright.appendChild(rightImgEle)
